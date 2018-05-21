@@ -1,5 +1,13 @@
 version: '3'
 services:
+  stubby:
+    build: ./stubs
+    ports:
+      - "8189:8187"
+      - "5560:5558"
+    restart: always
+    volumes:
+      - ./stubs:/stubs
   db:
     image: postgres
     environment:
@@ -16,6 +24,7 @@ services:
       - "4001:3000"
     depends_on:
       - db
+      - stubby
     tty: true
     stdin_open: true
 volumes:
